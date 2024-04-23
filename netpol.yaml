@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dev-to-test
+  namespace: dev
+spec:
+  podSelector: {}                 #It Means all pods of dev namespace
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: test             #Must gave this label to "test" namesapce first
+    ports:
+    - protocol: TCP
+      port: 9000                 #Provide your specific port number
+    - protocol: TCP
+      port: 9001                 #Provide your specific port number  
+    - protocol: TCP
+      port: 9002                 #Provide your specific port number
